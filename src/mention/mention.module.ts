@@ -1,29 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, ModuleWithProviders } from '@angular/core';
-
+import { NgModule } from '@angular/core';
 import { MentionDirective } from './mention.directive';
 import { MentionListComponent } from './mention-list.component';
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    exports: [
-        MentionDirective,
-        MentionListComponent
-    ],
-    entryComponents: [
-        MentionListComponent
-    ],
-    declarations: [
-        MentionDirective,
-        MentionListComponent
-    ]
+  declarations: [
+    MentionDirective,
+    MentionListComponent
+  ],
+  imports: [
+    CommonModule
+  ],
+  exports: [
+    MentionDirective
+  ],
+  entryComponents: [
+    MentionListComponent
+  ]
 })
-export class MentionModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: MentionModule
-        };
-    }
-}
+export class MentionModule { }

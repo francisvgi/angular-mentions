@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { COMMON_NAMES } from '../common-names';
-import { MentionItem } from 'mention';
+import { MentionConfig } from 'mention';
 
 @Component({
   selector: 'app-demo-template',
@@ -13,14 +13,14 @@ export class DemoTemplateComponent {
     return `[${item.username}]`;
   }
 
-  complexItems: Array<MentionItem> = [{
-    items: COMMON_NAMES.map(name => {
-      return {label: name, username: name.toLowerCase()};
-    }),
-    labelKey: "name",
-    triggerChar: "#",
-    maxItems: 10,
-    // mentionListTemplate: "mentionListTemplate"
-  }];
-
+  complexItems: MentionConfig = {
+    mentions: [{
+      items: COMMON_NAMES.map(name => {
+        return { label: name, username: name.toLowerCase() };
+      }),
+      labelKey: "name",
+      triggerChar: "#",
+      maxItems: 10,
+    }]
+  }
 }

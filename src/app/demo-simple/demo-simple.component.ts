@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MentionItem } from '../../mention/mention-item';
+import { MentionConfig } from '../../mention/mention-config';
 import { COMMON_NAMES } from '../common-names';
 import { COMMON_TAGS } from '../common-tags';
 
@@ -11,42 +11,54 @@ import { COMMON_TAGS } from '../common-tags';
   templateUrl: './demo-simple.component.html'
 })
 export class DemoSimpleComponent {
-  mentionItems: Array<MentionItem> = [];
+  mentionItems: MentionConfig;
   ngOnInit(): void {
     const self: this = this;
+    this.mentionItems = {
 
-    this.mentionItems = [
-      {
-        items: COMMON_TAGS,
-        triggerChar: '@',
-      },
-      {
-        items: COMMON_TAGS,
-        triggerChar: '#',
-      },
-      {
-        items: COMMON_NAMES,
-        triggerChar: '',
-      },
-      {
-        items: COMMON_NAMES,
-        triggerChar: ' ',
-      },
-      {
-        items: [
-          {
-            id: 1,
-            name: "community_A"
-          },
-          {
-            id: 2,
-            name: "community_B"
-          }
-        ],
-        labelKey: "name",
-        triggerChar: "~",
-      }
-    ];
+      mentions: [
+        {
+          items: COMMON_TAGS,
+          allowSpace: true,
+          triggerChar: '@',
+          disableSearch: false
+        },
+        {
+          items: COMMON_TAGS,
+          allowSpace: true,
+          triggerChar: '#',
+          disableSearch: false
+        },
+        {
+          items: COMMON_NAMES,
+          allowSpace: true,
+          triggerChar: '',
+          disableSearch: false
+        },
+        {
+          items: COMMON_NAMES,
+          allowSpace: true,
+          triggerChar: ' ',
+          disableSearch: false
+        },
+        {
+          items: [
+            {
+              id: 1,
+              name: "community_A"
+            },
+            {
+              id: 2,
+              name: "community_B"
+            }
+          ],
+          labelKey: "name",
+          triggerChar: "~",
+          disableSearch: false
+        }
+      ]
+    }
+
   }
 
   selectedTerm(item: any) {

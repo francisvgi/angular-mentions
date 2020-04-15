@@ -5,16 +5,16 @@
 and content editable fields. Try entering some @names below.</p>
 
 <h3>Minimal</h3>
-<input [mentions]="mentionItems" (selectedTerm)="selectedTerm($event)" class="form-control" type="text">
+<input [mentionConfig]="mentionItems" (selectedTerm)="selectedTerm($event)" class="form-control" type="text">
 
 <h3>Textarea</h3>
-<textarea [mentions]="mentionItems" class="form-control" cols="60" rows="4"></textarea>
+<textarea [mentionConfig]="mentionItems" class="form-control" cols="60" rows="4"></textarea>
 
 <h3>Content Editable</h3>
-<div [mentions]="mentionItems" class="form-control" contenteditable="true" style="border:1px lightgrey solid;min-height:88px"></div>
+<div [mentionConfig]="mentionItems" class="form-control" contenteditable="true" style="border:1px lightgrey solid;min-height:88px"></div>
 
 <h3>With Empty Trigger</h3>
-<input [mentions]="mentionItems" [isEmptyTrigger]="true" (selectedTerm)="selectedTerm($event)" class="form-control"
+<input [mentionConfig]="mentionItems" [isEmptyTrigger]="true" (selectedTerm)="selectedTerm($event)" class="form-control"
     type="text">
 
 <br><p style="color:grey">angular-mentions on <a href="https://github.com/dmacfarlane/angular-mentions">Github</a></p>
