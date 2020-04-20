@@ -24,5 +24,7 @@ export interface MentionItem {
 
   searchList? : MentionListComponent;
 
-  mentionSelect? : any;
+  mentionSelect? : any;  
+  
+  dropUp?:boolean;
 }

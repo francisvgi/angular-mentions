@@ -21,22 +21,75 @@ import { getCaretCoordinates } from './caret-coords';
         max-height: 300px;
         overflow: auto;
       }
-    `,`
+    `, `
       [hidden] {
         display: none;
       }
-    `,`
+    `, `
       li.active {
         background-color: #f7f7f9;
-      }
+      } 
+      .mention-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      float: left;
+      min-width: 11em;
+      padding: 0.5em 0;
+      margin: 0.125em 0 0;
+      font-size: 1em;
+      color: #212529;
+      text-align: left;
+      list-style: none;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 0.25em;
+    }
+    .mention-item {
+      display: block;
+      padding: 0.2em 1.5em;
+      line-height: 1.5em;
+      clear: both;
+      font-weight: 400;
+      color: #212529;
+      text-align: inherit;
+      white-space: nowrap;
+      background-color: transparent;
+      border: 0;
+    }
+    .mention-active > a {
+      color: #fff;
+      text-decoration: none;
+      background-color: #337ab7;
+      outline: 0;
+    }
+    .scrollable-menu {
+      display: block;
+      height: auto;
+      max-height: 292px; /* fits 11 items with 14px font-size */
+      overflow: auto;
+    }
+    [hidden] {
+      display: none;
+    }
+    
+    .mention-dropdown {
+      bottom: 100%;
+      top: auto;
+      margin-bottom: 2px;
+    }
+    
     `],
   template: `
     <ng-template #defaultItemTemplate let-item="item">
       {{item[labelKey]}}
     </ng-template>
-    <ul #list [hidden]="hidden" class="dropdown-menu scrollable-menu">
+    <ul #list [hidden]="hidden" class="dropdown-menu scrollable-menu" [class.mention-dropdown]="dropUp">
         <li *ngFor="let item of items; let i = index" [class.active]="activeIndex==i">
-            <a class="dropdown-item" (mousedown)="activeIndex=i;itemClick.emit();$event.preventDefault()">
+            <a class="dropdown-item mention-item" (mousedown)="activeIndex=i;itemClick.emit();$event.preventDefault()">
               <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{'item':item}"></ng-template>
             </a>
         </li>
@@ -53,9 +106,9 @@ export class MentionListComponent implements AfterContentChecked {
   activeIndex: number = 0;
   hidden: boolean = false;
   dropUp: boolean = false;
-  private coords: {top:number, left:number} = {top:0, left:0};
+  private coords: { top: number, left: number } = { top: 0, left: 0 };
   private offset: number = 0;
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef) { }
 
   ngAfterContentChecked() {
     if (!this.itemTemplate) {
@@ -100,7 +153,7 @@ export class MentionListComponent implements AfterContentChecked {
     let listEl: HTMLElement = this.list.nativeElement;
     let activeEl = listEl.getElementsByClassName('active').item(0);
     if (activeEl) {
-      let nextLiEl: HTMLElement = <HTMLElement> activeEl.nextSibling;
+      let nextLiEl: HTMLElement = <HTMLElement>activeEl.nextSibling;
       if (nextLiEl && nextLiEl.nodeName == "LI") {
         let nextLiRect: ClientRect = nextLiEl.getBoundingClientRect();
         if (nextLiRect.bottom > listEl.getBoundingClientRect().bottom) {
@@ -117,7 +170,7 @@ export class MentionListComponent implements AfterContentChecked {
     let listEl: HTMLElement = this.list.nativeElement;
     let activeEl = listEl.getElementsByClassName('active').item(0);
     if (activeEl) {
-      let prevLiEl: HTMLElement = <HTMLElement> activeEl.previousSibling;
+      let prevLiEl: HTMLElement = <HTMLElement>activeEl.previousSibling;
       if (prevLiEl && prevLiEl.nodeName == "LI") {
         let prevLiRect: ClientRect = prevLiEl.getBoundingClientRect();
         if (prevLiRect.top < listEl.getBoundingClientRect().top) {
@@ -149,14 +202,14 @@ export class MentionListComponent implements AfterContentChecked {
     //   dropUp = true;
     // }
     // if top is off page, disable dropUp
-    if (bounds.top<0) {
+    if (bounds.top < 0) {
       dropUp = false;
     }
     // set the revised/final position
     this.positionElement(left, top, dropUp);
   }
 
-  private positionElement(left:number=this.coords.left, top:number=this.coords.top, dropUp:boolean=this.dropUp) {
+  private positionElement(left: number = this.coords.left, top: number = this.coords.top, dropUp: boolean = this.dropUp) {
     const el: HTMLElement = this.element.nativeElement;
     top += dropUp ? 0 : this.offset; // top of list is next line
     el.className = dropUp ? 'dropup' : null;

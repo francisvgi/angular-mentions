@@ -19,18 +19,22 @@ export class DemoSimpleComponent {
       {
         items: COMMON_TAGS,
         triggerChar: '@',
+        dropUp: true
       },
       {
         items: COMMON_TAGS,
         triggerChar: '#',
+        dropUp: false
       },
       {
         items: COMMON_NAMES,
         triggerChar: '',
+        dropUp: true
       },
       {
         items: COMMON_NAMES,
         triggerChar: ' ',
+        dropUp: true
       },
       {
         items: [
